@@ -6,11 +6,8 @@ import time
 
 category = ['Politics','Economic','Social','Culture','World','IT']
 #섹션 별 기사 갯수를 '세계'면으로 맞추기
+
 pages = [110, 110, 110, 78, 110, 66] # IT, 생활로 맞추면 데이터 손실이 너무 커짐
-
-# 크롬 설정 - 크롬 정보 - 버전 확인 - 버전에 맞는 chromedriver 다운로드 - 프로젝트 폴더에 chromedriver 실행파일 복사
-
-url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=100#&date=%2000:00:00&page=2'
 
 #webdriver crawling을 위한 각종 옵션
 options = webdriver.ChromeOptions()
@@ -18,7 +15,10 @@ options.add_argument('lang=ko_KR') #언어설정
 # options.add_argument('--no-sandbox') # Docker
 # options.add_argument('--disable-dev-shm-usage') #리눅스
 # options.add_argument('--disable-gpu') #리눅스 - 셀레니움의 작업속도를 높이기 위해 gpu 기능 제거
+
+# 크롬 설정 - 크롬 정보 - 버전 확인 - 버전에 맞는 chromedriver 다운로드 - 프로젝트 폴더에 chromedriver 실행파일 복사
 driver = webdriver.Chrome('./chromedriver', options=options)
+
 df_titles = pd.DataFrame()
 
 #브라우저에서 crawling
@@ -39,12 +39,12 @@ for i in range(0,6):
                 except NoSuchElementException as e: #X-path가 없음
                     time.sleep(0.5)
                     try:
-                        title = driver.find_element_by_xpath(x_path).text
+                        title = driver.find_element_by_xpath(x_path).text #한번 더 기존의 X-path 규칙으로 시도
                         title = re.compile('[^가-힣 ]').sub('', title)
                         titles.append(title)
                     except:
                         try:
-                            x_path = '//*[@id="section_body"]/ul[{}]/li[{}]/dl/dt/a'.format(k,l)
+                            x_path = '//*[@id="section_body"]/ul[{}]/li[{}]/dl/dt/a'.format(k,l) #다른 X-path 규칙으로 시도
                             title = re.compile('[^가-힣 ]').sub('', title)
                             titles.append(title)
                         except:
