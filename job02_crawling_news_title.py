@@ -22,7 +22,7 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 df_titles = pd.DataFrame()
 
 #브라우저에서 crawling
-for i in range(0,6):
+for i in range(0,2):
     titles = []
     for j in range(1,pages[i]+1):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(i,j)
@@ -59,12 +59,16 @@ for i in range(0,6):
             df_selection_titles = pd.DataFrame(titles, columns=['titles'])
             df_selection_titles['category'] = category[i]
             df_titles = pd.concat([df_titles, df_selection_titles], ignore_index=True)
-            df_titles.to_csv('./crawling_data_{}_{}.csv'.format(category[i], j), index=False)
+            df_selection_titles.to_csv('./crawling_data_{}_{}_{}.csv'.format(category[i], j-29, j), index=False)
             title = [] #30개씩 저장하고 title을 비워둠
     #30페이지씩 crawling 하고 남은 페이지 저장
     df_selection_titles = pd.DataFrame(titles, columns=['titles'])
     df_selection_titles['category'] = category[i]
     df_titles = pd.concat([df_titles, df_selection_titles], ignore_index=True)
-    df_titles.to_csv('./crawling_data_{}_{}.csv'.format(category[i], j), index=False)
+    df_selection_titles.to_csv('./crawling_data_{}_last.csv'.format(category[i]), index=False)
     titles=[]
+df_selection_titles = pd.DataFrame(titles, columns=['titles'])
+df_selection_titles['category'] = category[i]
+df_titles = pd.concat([df_titles, df_selection_titles], ignore_index=True)
+df_titles.to_csv('./crawling_data/crawling_data.csv'.format(category[i]), index=False)
 driver.close()
