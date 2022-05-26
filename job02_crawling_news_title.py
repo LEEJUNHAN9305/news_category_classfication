@@ -22,7 +22,7 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 df_titles = pd.DataFrame()
 
 #브라우저에서 crawling
-for i in range(2,4):
+for i in range(0,2):
     titles = []
     for j in range(1,pages[i]+1):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(i,j)
