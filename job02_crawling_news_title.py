@@ -3,6 +3,7 @@ from selenium.common.exceptions import NoSuchElementException, StaleElementRefer
 import pandas as pd
 import re
 import time
+import datetime
 
 category = ['Politics','Economic','Social','Culture','World','IT']
 #섹션 별 기사 갯수를 '세계'면으로 맞추기
@@ -24,7 +25,7 @@ driver = webdriver.Chrome('./chromedriver', options=options)
 df_titles = pd.DataFrame()
 
 #브라우저에서 crawling
-for i in range(0,2):
+for i in range(0,6):
     titles = []
     for j in range(1,pages[i]+1):
         url = 'https://news.naver.com/main/main.naver?mode=LSD&mid=shm&sid1=10{}#&date=%2000:00:00&page={}'.format(i,j)
@@ -72,5 +73,6 @@ for i in range(0,2):
 df_selection_titles = pd.DataFrame(titles, columns=['titles'])
 df_selection_titles['category'] = category[i]
 df_titles = pd.concat([df_titles, df_selection_titles], ignore_index=True)
-df_titles.to_csv('./crawling_data/crawling_data.csv'.format(category[i]), index=False)
+df_titles.to_csv('./crawling_data/naver_news_titles_{}.csv'.format(
+    datetime.datetime.now().strftime('%Y%m%d')), index=False)
 driver.close()
