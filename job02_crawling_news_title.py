@@ -12,9 +12,11 @@ pages = [110, 110, 110, 78, 110, 66] # IT, 생활로 맞추면 데이터 손실�
 #webdriver crawling을 위한 각종 옵션
 options = webdriver.ChromeOptions()
 options.add_argument('lang=ko_KR') #언어설정
+# options.add.argument('headless') #브라우저를 메모리 상에만 띄움. colab에서 띄우고 싶으면 이 옵션을 부여
 # options.add_argument('--no-sandbox') # Docker
 # options.add_argument('--disable-dev-shm-usage') #리눅스
 # options.add_argument('--disable-gpu') #리눅스 - 셀레니움의 작업속도를 높이기 위해 gpu 기능 제거
+
 
 # 크롬 설정 - 크롬 정보 - 버전 확인 - 버전에 맞는 chromedriver 다운로드 - 프로젝트 폴더에 chromedriver 실행파일 복사
 driver = webdriver.Chrome('./chromedriver', options=options)
