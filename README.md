@@ -1,7 +1,7 @@
 # NAVER News Category Classfication
 
 이 저장소는 자연어 기반 네이버 뉴스 섹션 분류 모델 실습을 위한 저장소입니다.
-본 프로젝트는 Python 3.7 버전에서 제작되었습니다.
+</br>본 프로젝트는 Python 3.7 버전에서 제작되었습니다.
 
 폴더구조는
 root
