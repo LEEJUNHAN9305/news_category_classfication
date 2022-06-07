@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 from konlpy.tag import Okt
-from tensorflow.keras.preprocessing.sequence import pad_sequences
-from tensorflow.keras.utils import to_categorical
+from keras.utils import pad_sequences
+from keras.utils import to_categorical
 import pickle
-from tensorflow.keras.models import load_model
+from keras.models import load_model
 
 pd.set_option('display.unicode.east_asian_width', True)
 pd.set_option('display.max_columns', 20) #요약하지 말고 모든 columns를 다 출력해라
