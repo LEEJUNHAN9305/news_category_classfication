@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from tensorflow.keras.models import *
-from tensorflow.keras.layers import *
+from keras.models import *
+from keras.layers import *
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1" #CPU를 쓰도록 강제. GPU 사용 시 지우면 됨
 
@@ -18,11 +18,11 @@ model.add(Embedding(12426, 300, input_length=17))
 model.add(Conv1D(32, kernel_size=5, padding='same', activation='relu'))
 model.add(MaxPool1D(pool_size=1))
                     #pooling 안함
-model.add(LSTM(128, activation='tanh', return_sequences=True))
+model.add(LSTM(128, activation='tanh', return_sequences=True)) # 출력값을 매 시퀀스마다 저장하여 다음 LSTM 구조가 받을 수 있도록 함
 model.add(Dropout(0.3))
 model.add(LSTM(64, activation='tanh', return_sequences=True))
 model.add(Dropout(0.3))
-model.add(LSTM(64, activation='tanh'))
+model.add(LSTM(64, activation='tanh'))  # 하나만 출력하면 되기 때문에 return sequences를 설정하지 않음
 model.add(Dropout(0.3))
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
